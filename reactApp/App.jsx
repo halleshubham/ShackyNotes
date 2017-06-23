@@ -3,7 +3,7 @@ import $ from 'jquery';
 import NoteRow from './NoteRow.jsx';
 import { Router, Route, Link, browserHistory, IndexRoute  } from 'react-router'
 import store from './myStore';
-import {addNote, getData, isLoaded, updateList, toggleLoaded, toggleIsTrans} from './myStore';
+import {addNote, getData, isLoaded, updateList, togLo, toggleIsTrans} from './myStore';
 
 
 class App extends React.Component {
@@ -24,9 +24,9 @@ class NoteList extends React.Component{
         this.state ={
             data : [
                 {
+                    "note":"This is sample hardcoded note",
                     "id": -1,
                     "title":"sample",
-                    "note":"This is sample hardcoded note",
                         
                 }],
             isLoaded : false,
@@ -60,9 +60,7 @@ iter(){
 
 //==============------------------------------------------------------------------------
 setNext(){
-    let l = store.dispatch(isLoaded())
-    console.log(l)
-    if(!l.isLoaded){
+    
         console.log("AJAX is being called !!")
        $.ajax({
            url : "http://127.0.0.1:8000/polls/note/",
@@ -78,14 +76,9 @@ setNext(){
               console.log(textStatus, errorThrown);
            }
        });
-    }
-    else{
-        
-        let k = store.dispatch(getData())
-        console.log(k)
-        this.setState({ data : k.data })
-    }   
-    
+     
+    var a = store.dispatch(togLo());
+    console.log(a);
 };
 
 //==============------------------------------------------------------------------------
@@ -127,12 +120,13 @@ insertNew(){
                let arr = this.state.data;
                arr.push(response)
                this.setState({data : arr});
+               store.dispatch(updateList(arr));
                
         }.bind(this),
     }
     
     );
-
+    
     
     /*this.setNext();
     this.render();
@@ -140,7 +134,17 @@ insertNew(){
 }
 
 componentWillMount(){
-    this.setNext();
+    let l = store.dispatch(isLoaded())
+    console.log(l)
+    if(!l.isLoaded){
+        this.setNext();
+        }
+    else{
+        
+        let k = store.dispatch(getData())
+        //console.log(k)
+        this.setState({ data : k.data })
+    }  
 }
 //==============------------------------------------------------------------------------
 render(){

@@ -31,7 +31,8 @@ export function getData(){
 }
 
 
-export function toggleLoaded(){
+export function togLo(){
+    console.log('I was executed')
     return {
         type : 'TG_LOADED',
         isLoaded : tempState.isLoaded
@@ -54,13 +55,12 @@ export function updateList(data){
 
 
 function tempApp(tempState, action){
+    console.log(action.type)
     switch(action.type){
         case 'IS_LOADED':
             return tempState.isLoaded;
 
         case 'TG_LOADED':
-            tempState.isLoaded = true;
-            console.log("passing " + tempState.isLoaded)
             return tempState.isLoaded;
 
         case 'GET_DATA':
@@ -81,6 +81,8 @@ function tempApp(tempState, action){
             var newState = Object.assign({},tempState);
             newState.data = action.data;
             newState.isLoaded = true;
+            console.log(newState.isLoaded)
+            //tempState.isLoaded = true;
             //console.log (tempState);
             return newState.data;
 
