@@ -1,0 +1,46 @@
+<table border="1">
+
+{%  if noteList       %}
+{% for note in noteList %}
+<tr>
+    
+    <td>
+        {{ note.id }}
+    </td>
+    <td>
+        {{ note.title }}
+    </td>
+    <td>
+        {{ note.note }}
+    </td>
+    
+
+</tr>
+{% endfor %}
+{% endif %}
+
+</table>
+
+
+<!--<table border="1">
+
+{%  if serializer       %}
+{% for note in serializer %}
+<tr>
+    
+    <td>
+        {{ note.title }}
+    </td>
+    <td>
+        {{ note.id }}
+    </td>
+    <td>
+        {{ note.note }}
+    </td>
+    
+
+</tr>
+{% endfor %}
+{% endif %}
+
+</table>-->
